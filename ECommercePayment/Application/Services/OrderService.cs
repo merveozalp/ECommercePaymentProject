@@ -223,31 +223,5 @@ namespace ECommercePayment.Application.Services
                 throw;
             }
         }
-
-        /// <summary>
-        /// Cancels an order and restores stock using repository transaction management
-        /// </summary>
-        public async Task<bool> CancelOrderAsync(string orderId)
-        {
-            if (string.IsNullOrWhiteSpace(orderId))
-            {
-                throw new OrderNotFoundException("Order ID is required");
-            }
-
-            var order = await _orderRepository.GetByIdAsync(orderId);
-            if (order == null)
-            {
-                throw new OrderNotFoundException($"Order not found: {orderId}");
-            }
-
-            // Only allow cancellation for blocked orders
-            if (order.Status != "Blocked")
-            {
-                throw new ValidationException($"Order cannot be cancelled. Current status: {order.Status}");
-            }
-
-            // Cancel order and restore stock using repository transaction
-            return await _orderRepository.CancelOrderWithStockRestorationAsync(orderId);
-        }
     }
 }

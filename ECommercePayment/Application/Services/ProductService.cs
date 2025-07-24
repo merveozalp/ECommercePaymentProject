@@ -1,11 +1,8 @@
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using ECommercePayment.Application.DTOs;
-using ECommercePayment.Application.Interfaces;
-using ECommercePayment.Infrastructure.BalanceManagement;
-
 namespace ECommercePayment.Application.Services
 {
+    using ECommercePayment.Application.DTOs;
+    using ECommercePayment.Application.Interfaces;
+    using ECommercePayment.Infrastructure.BalanceManagement;
     public class ProductService : IProductService
     {
         private readonly IBalanceManagementClient _balanceClient;
